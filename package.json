@@ -1,0 +1,13 @@
+{
+  "name": "aish-nasa-dashboard",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "concurrently \"npm --prefix backend run dev\" \"npm --prefix frontend run dev\"",
+    "lint": "npm --prefix backend run lint && npm --prefix frontend run lint",
+    "format": "npm --prefix backend run format && npm --prefix frontend run format"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.0"
+  }
+}
