@@ -24,7 +24,6 @@ const asteroidsRoute = (fastify, _opts, done) => {
             date: {
               type: "string",
               description: "Date to query in YYYY-MM-DD format (e.g. 2024-01-01).",
-              example: "2024-01-01",
               pattern: "^\\d{4}-\\d{2}-\\d{2}$",
             },
           },
@@ -34,7 +33,7 @@ const asteroidsRoute = (fastify, _opts, done) => {
             description: "Asteroids for the requested date - normalized for UI consumption.",
             type: "object",
             properties: {
-              date: { type: "string", example: "2024-01-01" },
+              date: { type: "string" },
               count: { type: "number", example: 10 },
               asteroids: {
                 type: "array",
