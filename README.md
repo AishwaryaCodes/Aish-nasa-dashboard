@@ -172,6 +172,11 @@ Step 2: Backend Setup
 
 ---
 
+## Screensort 
+
+<img width="661" height="359" alt="image" src="https://github.com/user-attachments/assets/babeb2fe-4957-47ec-a630-79fc3c4c1bef" />
+
+
 ## Quick Start
 
 ```bash
