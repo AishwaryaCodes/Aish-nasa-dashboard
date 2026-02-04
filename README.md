@@ -173,8 +173,17 @@ Step 2: Backend Setup
 ---
 
 ## Screensort 
-
+Final Table
+<br/>
 <img width="661" height="359" alt="image" src="https://github.com/user-attachments/assets/babeb2fe-4957-47ec-a630-79fc3c4c1bef" />
+
+<br/>
+<br/>
+
+Sorted by Closeness to Earth (mi) - Desc order
+<br/>
+<img width="656" height="344" alt="image" src="https://github.com/user-attachments/assets/9dbc6ffb-3ba7-4b56-afca-226014234bc9" />
+
 
 
 ## Quick Start
