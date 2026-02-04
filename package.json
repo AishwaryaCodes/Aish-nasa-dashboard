@@ -4,10 +4,13 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "concurrently \"npm --prefix backend run dev\" \"npm --prefix frontend run dev\"",
+    "build": "npm --prefix frontend run build",
     "lint": "npm --prefix backend run lint && npm --prefix frontend run lint",
-    "format": "npm --prefix backend run format && npm --prefix frontend run format"
+    "format": "npm --prefix backend run format && npm --prefix frontend run format",
+    "prepare": "husky"
   },
   "devDependencies": {
-    "concurrently": "^9.0.0"
+    "concurrently": "^9.0.0",
+    "husky": "^9.1.7"
   }
 }

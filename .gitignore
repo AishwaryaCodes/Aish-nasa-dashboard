@@ -1,16 +1,18 @@
 
 node_modules/
+**/node_modules/
 
 dist/
 build/
 out/
 .vite/
-
+**/dist/
+**/build/
 
 .env
 .env.local
 .env.*.local
-
+**/.env
 
 logs/
 *.log
