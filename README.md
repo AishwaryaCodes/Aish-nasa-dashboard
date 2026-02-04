@@ -30,7 +30,7 @@ Dev Tools - ESLint, Prettier
 
 ### Backend
 - Fastify server with structured routes
-- Calls NASA NeoWs API and normalizes the response
+- Calls NASA NeoWs API and returns a normalized payload tailored for the UI.
 - Provides a clean API for the frontend
 - Includes OpenAPI 3 schema and Swagger UI
 
@@ -43,8 +43,8 @@ Dev Tools - ESLint, Prettier
 
 ## CodeBase 
 - Clean Code with Readability, Maintainability, Extensibility
-- Resuable components at Front-End
-- Seperate Backend routes for different responsibilites
+- Reusable components at Front-End
+- Separate Backend routes for different responsibilites
 
 --- 
 
@@ -62,7 +62,7 @@ Dev Tools - ESLint, Prettier
 - TTL: 5mins
 - - Purpose: Reduce repeated calls to NASA API
 
-2) ESLint and Prettier configuration for both frontend and backend
+2) ESLint + Prettier configuration for both frontend and backend
 - It helped for consistent formatting and basic code quality rules
 </br>
 
@@ -70,8 +70,8 @@ Dev Tools - ESLint, Prettier
 - Easy to run app
 </br>
 
-4) Basic request validation and error handling
-- Input VAlidation for date Picker
+4) Basic request Validation and error handling
+- Input Validation for date Picker
 - Error responses for invalid input and external API failures
 
 ---
@@ -81,7 +81,7 @@ Dev Tools - ESLint, Prettier
 
 ### Tech stack
 1) Backend: Fastify VS Express
-Fastify was a good fit because schema-first routes make validation + OpenAPI/Swagger straightforward. Express would also work, but would require more manual wiring.
+Fastify was a good fit because schema-first routes make Validation + OpenAPI/Swagger straightforward. Express would also work, but would require more manual wiring.
 </br>
 
 2) Frontend: React (no Next.js per requirement)  
@@ -115,8 +115,8 @@ Kept the UI lightweight and quick to iterate on using React + Vite + TypeScript.
 ### Developer tooling
 1) Lint/format setup: Added ESLint + Prettier for consistency, but didn’t add tests due to time limits.
 
-### Buid Scripts
-1) Husky
+### Build Scripts
+1) Added Husky pre-commit hook to run linting before commits.
 
 ### If I had more time
 - Add unit/integration tests (backend + frontend)
@@ -136,10 +136,10 @@ create 2 Folders for Client: frontend/ – React (TypeScript) and Server: backen
 
 Step 1: Frontend Setup
 - cd frontend
-- Create React Vite Project using commant: npm create vite@latest . -- --template react-ts
+- Create React Vite Project using command: npm create vite@latest . -- --template react-ts
 - Select TypeScript
 
-- npm install dependencies using commant: npm i
+- npm install dependencies using command: npm i
 - Command to Run: npm run dev
 - Run on - http://localhost:5173 
 
@@ -149,7 +149,7 @@ Step 1: Frontend Setup
 
 Step 2: Backend Setup
 - cd backend
-- npm install dependencies using commant: npm i
+- npm install dependencies using command: npm i
 - Command to Run: npm run dev
 - Run on - http://localhost:3001
 - Swagger UI (OpenAPI docs) - http://localhost:3001/docs
