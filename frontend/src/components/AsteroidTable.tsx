@@ -51,7 +51,7 @@ export default function AsteroidTable({
     return sortOrder === "asc" ? diff : -diff;
   });
 
-  const sortArrow = sortOrder === "asc" ? " ^ " : " v";  // sorting icon in UI
+  const sortArrow = sortOrder === "asc" ? " ↑ " : " ↓ ";  // sorting icon in UI
 
   return (
     <table

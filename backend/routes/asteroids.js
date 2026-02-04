@@ -4,12 +4,18 @@ const { isValidDateString, fetchAsteroidsForDate } = require("./nasa");
 const cache = new Map(); // date - { data, expiresAt }
 const CACHE_TTL_MS = 5 * 60 * 1000; // 5 mins
 
+// Dashboard endpoint:
+//  validates date input
+//  serves cached results to reduce NASA calls / rate limiting
+//  normalizes NASA's feed response into a UI-friendly shape
 const asteroidsRoute = (fastify, _opts, done) => {
   fastify.get(
     "/api/asteroids",
     {
       schema: {
-        description: "Get asteroids close to Earth for a given date",
+        operationId: "getAsteroidsByDate",
+        description: "Get asteroids close to Earth for a given date.",
+        summary: "List near-earth asteroids for a date.",
         tags: ["asteroids"],
         querystring: {
           type: "object",
@@ -17,36 +23,60 @@ const asteroidsRoute = (fastify, _opts, done) => {
           properties: {
             date: {
               type: "string",
-              description: "Date in YYYY-MM-DD format",
+              description: "Date to query in YYYY-MM-DD format (e.g. 2024-01-01).",
+              example: "2024-01-01",
+              pattern: "^\\d{4}-\\d{2}-\\d{2}$",
             },
           },
         },
         response: {
           200: {
+            description: "Asteroids for the requested date - normalized for UI consumption.",
             type: "object",
             properties: {
-              date: { type: "string" },
-              count: { type: "number" },
+              date: { type: "string", example: "2024-01-01" },
+              count: { type: "number", example: 10 },
               asteroids: {
                 type: "array",
                 items: {
                   type: "object",
                   properties: {
-                    id: { type: "string" },
-                    name: { type: "string" },
-                    size_miles_avg: { type: ["number", "null"] },
-                    size_miles_min: { type: ["number", "null"] },
-                    size_miles_max: { type: ["number", "null"] },
-                    miss_distance_miles: { type: ["number", "null"] },
-                    speed_mph: { type: ["number", "null"] },
+                    id: { type: "string", example: "3724393" },
+                    name: { type: "string", example: "(2015 OD22)" },
+                    size_miles_avg: { type: ["number", "null"], example: 0.1531 },
+                    size_miles_min: { type: ["number", "null"], example: 0.0946 },
+                    size_miles_max: { type: ["number", "null"], example: 0.2115 },
+                    miss_distance_miles: { type: ["number", "null"], example: 40648475.1 },
+                    speed_mph: { type: ["number", "null"], example: 56801.97 },
                   },
                 },
               },
             },
           },
-          400: { type: "object", properties: { error: { type: "string" } } },
-          403: { type: "object", properties: { error: { type: "string" } } },
-          429: { type: "object", properties: { error: { type: "string" } } },
+          400: { 
+            description: "Bad Request. Missing/invalid date format.",
+            type: "object", 
+            properties: { error: { type: "string" } },
+            example: { error: "date is required in YYYY-MM-DD format" }
+          },
+          403: { 
+            description: "Forbidden.",
+            type: "object",
+            properties: { error: { type: "string" } },
+            example: { error: "NASA rejected the API key (403). Verify NASA_API_KEY in backend/.env." } 
+          },
+          429: { 
+            description: "Too Many Requests.",
+            type: "object",
+            properties: { error: { type: "string" } },
+            example: { error: "NASA rate limit hit. Try again shortly or use a personal API key." },
+          },
+          500: {
+            description: "Server error.",
+            type: "object",
+            properties: { error: { type: "string" } },
+            example: { error: "Server error" },
+          }
         },
       },
     },

@@ -1,14 +1,16 @@
 const isValidDateString = (date) => {
-  // date type: YYYY-MM-DD
+  //  Validates if the string is in YYYY-MM-DD format.
   return typeof date === "string" && /^\d{4}-\d{2}-\d{2}$/.test(date);
 };
 
+// builds NASA NeoWs feed URL for a single day(supports a start/end date).
 const buildNasaUrl = (date, apiKey) => {
   return `https://api.nasa.gov/neo/rest/v1/feed?start_date=${date}&end_date=${date}&api_key=${apiKey}`;
 };
 
+// Converts NASA's NEO payload into the minimal fields needed by the table UI
 const simplifyNeo = (neo) => {
-  const approach = neo.close_approach_data?.[0];
+  const approach = neo.close_approach_data?.[0]; //  we query a single date - [0] is the relevant close-approach entry.
 
   const minMiles = neo.estimated_diameter?.miles?.estimated_diameter_min ?? null;
   const maxMiles = neo.estimated_diameter?.miles?.estimated_diameter_max ?? null;
@@ -37,6 +39,7 @@ const simplifyNeo = (neo) => {
   };
 };
 
+// Thin wrapper around NASA feed endpoint with friendly errors for common failures (403/429).
 const fetchAsteroidsForDate = async ({ date, apiKey }) => {
   const url = buildNasaUrl(date, apiKey);
   const res = await fetch(url);

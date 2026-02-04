@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import AsteroidTable from "./components/AsteroidTable";
 
 type Asteroid = {
@@ -24,9 +24,22 @@ export default function App() {
   const [error, setError] = useState<string | null>(null);
   const today = new Date().toISOString().split("T")[0];
 
+  const cacheRef = useRef<Map<string, { data: ApiResponse; expiresAt: number }>>(
+    new Map()
+  );
+
+  const CACHE_TTL_MS = 5 * 60 * 1000; // TTL = 5min
+
   async function loadAsteroids() {
     setLoading(true);
     setError(null);
+
+    const cached = cacheRef.current.get(date);
+    if (cached && cached.expiresAt > Date.now()) {
+      setData(cached.data);
+      setLoading(false);
+      return;
+    }
 
     try {
       const res = await fetch(
@@ -38,6 +51,12 @@ export default function App() {
       }
 
       const json: ApiResponse = await res.json();
+
+      cacheRef.current.set(date, {
+        data: json,
+        expiresAt: Date.now() + CACHE_TTL_MS,
+      });
+
       setData(json);
     } catch (e: unknown) {
       const message = e instanceof Error ? e.message : "Something went wrong";
