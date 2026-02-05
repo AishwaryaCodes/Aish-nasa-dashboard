@@ -12,7 +12,7 @@ Frontend - React (with TypeScript), Vite
 
 Backend - Node.js, Fastify, OpenAPI 3 (Swagger), NASA NeoWs API (https://api.nasa.gov/)
 
-Dev Tools - ESLint, Prettier
+Dev Tools - ESLint, Prettier, Husky 
 
 ---
 
@@ -60,7 +60,7 @@ Dev Tools - ESLint, Prettier
 
 2) Cache at Front-End
 - TTL: 5mins
-- - Purpose: Reduce repeated calls to NASA API
+- - Purpose: avoid repeated calls to backend for the same date during the session
 
 2) ESLint + Prettier configuration for both frontend and backend
 - It helped for consistent formatting and basic code quality rules
@@ -145,7 +145,6 @@ Step 1: Frontend Setup
 
 - Added ESLint and Prettier for code quality and formatting.
 
-- Install Husky to enable pre-commit Git hooks for automatic linting before commits: npx husky init
 
 Step 2: Backend Setup
 - cd backend
@@ -164,6 +163,9 @@ Step 2: Backend Setup
 ### Root Setup
 - npm install
 - npm run dev
+  
+- Install Husky(One-time setup) to enable pre-commit Git hooks for automatic linting before commits: npx husky init
+
 
 ### Environment File
 - Create .env file and add API key
